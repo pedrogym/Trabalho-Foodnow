@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FoodNow | Plataforma de pedidos</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --black: #080808;
+            --black-2: #0d0d0d;
+
+            --panel: #141414;
+            --panel-2: #191919;
+
+            --wine: #280c0e;
+            --wine-2: #3b1115;
+
+            --red: #b91c1c;
+            --red-light: #ef4444;
+
+            --white: #f5f5f5;
+            --gray: #a1a1aa;
+            --gray-2: #71717a;
+
+            --border: #292929;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(127, 29, 29, 0.16),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 0% 50%,
+                    rgba(69, 10, 10, 0.10),
+                    transparent 35%
+                ),
+                var(--black);
+
+            color: var(--white);
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            height: 76px;
+
+            padding: 0 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: rgba(8, 8, 8, 0.94);
+
+            border-bottom:
+                1px solid var(--border);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            backdrop-filter: blur(14px);
+        }
+
+        .logo {
+            font-size: 27px;
+
+            font-weight: 900;
+
+            letter-spacing: -1.5px;
+        }
+
+        .logo span {
+            color: var(--red-light);
+        }
+
+        nav {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        nav a,
+        nav button {
+            border: 1px solid transparent;
+
+            background: transparent;
+
+            color: var(--gray);
+
+            padding: 9px 14px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav button:hover {
+            color: white;
+
+            background: var(--panel);
+
+            border-color: var(--border);
+        }
+
+        nav .login {
+            color: white;
+
+            background: var(--red);
+
+            border-color: var(--red);
+        }
+
+        nav .login:hover {
+            background: var(--red-light);
+
+            border-color: var(--red-light);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding:
+                55px 24px 80px;
+        }
+
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro {
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 0.6fr;
+
+            gap: 25px;
+
+            margin-bottom: 55px;
+        }
+
+        .intro-main {
+            min-height: 330px;
+
+            padding: 42px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #171717,
+                    #0e0e0e
+                );
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .intro-main::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            right: -90px;
+            top: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(185, 28, 28, 0.22);
+
+            filter: blur(50px);
+
+            pointer-events: none;
+        }
+
+        .intro-number {
+            color: var(--red-light);
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 25px;
+        }
+
+        .intro h1 {
+            max-width: 650px;
+
+            font-size:
+                clamp(42px, 6vw, 72px);
+
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 22px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .intro h1 span {
+            color: var(--red-light);
+        }
+
+        .intro-text {
+            max-width: 560px;
+
+            color: var(--gray);
+
+            line-height: 1.7;
+
+            font-size: 16px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================
+           STATUS PANEL
+        ========================= */
+
+        .status-panel {
+            border:
+                1px solid var(--border);
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--wine),
+                    #120909
+                );
+
+            padding: 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content:
+                space-between;
+        }
+
+        .status-top {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+        }
+
+        .status-label {
+            color: var(--gray);
+
+            font-size: 12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 12px
+                rgba(34, 197, 94, 0.7);
+        }
+
+        .status-icon {
+            font-size: 65px;
+
+            margin: 15px 0;
+        }
+
+        .status-panel h2 {
+            font-size: 24px;
+
+            margin-bottom: 8px;
+        }
+
+        .status-panel p {
+            color: var(--gray);
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-box {
+            margin-bottom: 55px;
+        }
+
+        .search-label {
+            color: var(--gray);
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 12px;
+        }
+
+        .search {
+            height: 60px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 0 20px;
+
+            background: var(--panel);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 16px;
+        }
+
+        .search-icon {
+            font-size: 22px;
+
+            opacity: 0.7;
+        }
+
+        .search input {
+            width: 100%;
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 15px;
+        }
+
+        .search input::placeholder {
+            color: var(--gray-2);
+        }
+
+
+        /* =========================
+           SECTION HEADER
+        ========================= */
+
+        .section-header {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: end;
+
+            margin-bottom: 18px;
+        }
+
+        .section-label {
+            color: var(--red-light);
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+        }
+
+        .section-header h2 {
+            font-size: 29px;
+
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           CATEGORIES
+        ========================= */
+
+        .categories {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 60px;
+        }
+
+        .category {
+            min-height: 125px;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--panel-2),
+                    var(--panel)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 18px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content:
+                space-between;
+
+            transition: 0.2s;
+        }
+
+        .category:hover {
+            border-color:
+                rgba(239, 68, 68, 0.45);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--wine-2),
+                    var(--panel)
+                );
+
+            transform:
+                translateY(-3px);
+        }
+
+        .category-icon {
+            font-size: 30px;
+        }
+
+        .category-name {
+            font-weight: 800;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RESTAURANTS
+        ========================= */
+
+        #restaurantes {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 70px;
+        }
+
+        .restaurant-card {
+            min-height: 190px;
+
+            padding: 25px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #181818,
+                    #0e0e0e
+                );
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: 0.25s;
+        }
+
+        .restaurant-card:hover {
+            border-color:
+                rgba(239, 68, 68, 0.5);
+
+            transform:
+                translateY(-4px);
+        }
+
+        .restaurant-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            right: -60px;
+            bottom: -70px;
+
+            background:
+                rgba(185, 28, 28, 0.16);
+
+            border-radius: 50%;
+
+            filter: blur(25px);
+        }
+
+        .restaurant-top {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: start;
+        }
+
+        .restaurant-number {
+            color: var(--gray-2);
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        .icone {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background: var(--wine);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+
+            font-size: 29px;
+        }
+
+        .restaurant-card h3 {
+            font-size: 21px;
+
+            margin-top: 20px;
+
+            margin-bottom: 7px;
+        }
+
+        .categoria {
+            color: var(--red-soft);
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .restaurant-link {
+            position: absolute;
+
+            right: 23px;
+            bottom: 22px;
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: var(--red);
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            z-index: 2;
+
+            transition: 0.2s;
+        }
+
+        .restaurant-link:hover {
+            background: var(--red-light);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .mensagem {
+            grid-column: 1 / -1;
+
+            padding: 35px;
+
+            text-align: center;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+
+            color: var(--gray);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top:
+                1px solid var(--border);
+
+            padding: 28px;
+
+            text-align: center;
+
+            color: var(--gray-2);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 0 18px;
+            }
+
+            nav a,
+            nav button {
+                padding: 8px;
+
+                font-size: 11px;
+            }
+
+            main {
+                padding:
+                    35px 16px 60px;
+            }
+
+            .intro {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-main {
+                padding: 30px;
+
+                min-height: 300px;
+            }
+
+            .intro h1 {
+                font-size: 50px;
+
+                letter-spacing: -3px;
+            }
+
+            .categories {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            #restaurantes {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                align-items: start;
+
+                flex-direction: column;
+
+                gap: 6px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            Food<span>Now.</span>
+        </div>
+
+        <nav>
+
+            <a href="/">
+                Início
+            </a>
+
+            <a href="/pedidos.html">
+                Pedidos
+            </a>
+
+            <a href="/painel.html">
+                Painel
+            </a>
+
+            <a
+                href="/login.html"
+                id="loginLink"
+                class="login"
+            >
+                Entrar
+            </a>
+
+            <button
+                id="sairBtn"
+                style="display: none;"
+            >
+                Sair
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================= -->
+
+    <main>
+
+
+        <!-- INTRO -->
+
+        <section class="intro">
+
+
+            <div class="intro-main">
+
+                <div class="intro-number">
+                    FOODNOW / 01
+                </div>
+
+                <h1>
+                    Descubra.
+                    <br>
+                    <span>Escolha.</span>
+                    <br>
+                    Peça.
+                </h1>
+
+                <p class="intro-text">
+                    Um novo jeito de encontrar
+                    comida, explorar restaurantes
+                    e montar seu próximo pedido.
+                </p>
+
+            </div>
+
+
+            <div class="status-panel">
+
+                <div class="status-top">
+
+                    <span class="status-label">
+                        Plataforma
+                    </span>
+
+                    <span
+                        class="status-dot"
+                    ></span>
+
+                </div>
+
+                <div class="status-icon">
+                    🍽️
+                </div>
+
+                <div>
+
+                    <h2>
+                        Tudo pronto.
+                    </h2>
+
+                    <p>
+                        Escolha um restaurante
+                        e comece seu pedido.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BUSCA -->
+
+        <section class="search-box">
+
+            <div class="search-label">
+                Encontrar
+            </div>
+
+            <div class="search">
+
+                <span class="search-icon">
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="busca"
+                    placeholder="Buscar restaurante ou categoria..."
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIAS -->
+
+        <section>
+
+            <div class="section-header">
+
+                <div>
+
+                    <div class="section-label">
+                        Explorar
+                    </div>
+
+                    <h2>
+                        O que você quer hoje?
+                    </h2>
+
+                </div>
+
+                <p>
+                    Acesse rapidamente
+                </p>
+
+            </div>
+
+
+            <div class="categories">
+
+                <div
+                    class="category"
+                    data-categoria="Hamburguer"
+                >
+
+                    <div class="category-icon">
+                        🍔
+                    </div>
+
+                    <div class="category-name">
+                        Hambúrguer
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="category"
+                    data-categoria="Pizza"
+                >
+
+                    <div class="category-icon">
+                        🍕
+                    </div>
+
+                    <div class="category-name">
+                        Pizza
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="category"
+                    data-categoria="Massas"
+                >
+
+                    <div class="category-icon">
+                        🍝
+                    </div>
+
+                    <div class="category-name">
+                        Massas
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="category"
+                    data-categoria="Bebidas"
+                >
+
+                    <div class="category-icon">
+                        🥤
+                    </div>
+
+                    <div class="category-name">
+                        Bebidas
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESTAURANTES -->
+
+        <section>
+
+            <div class="section-header">
+
+                <div>
+
+                    <div class="section-label">
+                        FoodNow
+                    </div>
+
+                    <h2>
+                        Restaurantes
+                    </h2>
+
+                </div>
+
+                <p>
+                    Explore as opções disponíveis
+                </p>
+
+            </div>
+
+
+            <div id="restaurantes">
+
+                <div class="mensagem">
+                    Carregando restaurantes...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        FoodNow © 2026
+        <br>
+        Comida do seu jeito.
+
+    </footer>
+
+
+    <script>
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        const token =
+            localStorage.getItem("token");
+
+        const loginLink =
+            document.getElementById(
+                "loginLink"
+            );
+
+        const sairBtn =
+            document.getElementById(
+                "sairBtn"
+            );
+
+
+        if (token) {
+
+            loginLink.style.display =
+                "none";
+
+            sairBtn.style.display =
+                "block";
+
+        }
+
+
+        sairBtn.addEventListener(
+            "click",
+            function() {
+
+                localStorage.removeItem(
+                    "token"
+                );
+
+                localStorage.removeItem(
+                    "foodnow_usuario"
+                );
+
+                localStorage.removeItem(
+                    "foodnow_carrinho"
+                );
+
+                window.location.href =
+                    "/";
+
+            }
+        );
+
+
+        /* =========================
+           RESTAURANTES
+        ========================= */
+
+        let restaurantes =
+            [];
+
+
+        async function
+        carregarRestaurantes() {
+
+            const container =
+                document.getElementById(
+                    "restaurantes"
+                );
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        "/restaurants"
+                    );
+
+
+                restaurantes =
+                    await resposta.json();
+
+
+                renderizarRestaurantes(
+                    restaurantes
+                );
+
+
+            } catch (erro) {
+
+                console.error(
+                    erro
+                );
+
+                container.innerHTML = `
+                    <div class="mensagem">
+                        Erro ao carregar restaurantes.
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        /* =========================
+           RENDER
+        ========================= */
+
+        function
+        renderizarRestaurantes(
+            lista
+        ) {
+
+            const container =
+                document.getElementById(
+                    "restaurantes"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+            if (
+                lista.length === 0
+            ) {
+
+                container.innerHTML = `
+                    <div class="mensagem">
+                        Nenhum restaurante encontrado.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            lista.forEach(
+                function(restaurante, index) {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "restaurant-card";
+
+
+                    let icone = "🍽️";
+
+
+                    if (
+                        restaurante.category
+                            .toLowerCase()
+                            .includes("hamburg")
+                    ) {
+
+                        icone = "🍔";
+
+                    }
+
+
+                    if (
+                        restaurante.category
+                            .toLowerCase()
+                            .includes("pizza")
+                    ) {
+
+                        icone = "🍕";
+
+                    }
+
+
+                    card.innerHTML = `
+
+                        <div class="restaurant-top">
+
+                            <div class="restaurant-number">
+                                #${String(
+                                    index + 1
+                                ).padStart(2, "0")}
+                            </div>
+
+                            <div class="icone">
+                                ${icone}
+                            </div>
+
+                        </div>
+
+
+                        <h3>
+                            ${restaurante.name}
+                        </h3>
+
+
+                        <div class="categoria">
+                            ${restaurante.category}
+                        </div>
+
+
+                        <a
+                            class="restaurant-link"
+                            href="/restaurant.html?id=${restaurante.id}"
+                            title="Abrir restaurante"
+                        >
+                            →
+                        </a>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           BUSCA
+        ========================= */
+
+        const busca =
+            document.getElementById(
+                "busca"
+            );
+
+
+        busca.addEventListener(
+            "input",
+            function() {
+
+                const termo =
+                    busca.value
+                        .toLowerCase()
+                        .trim();
+
+
+                if (!termo) {
+
+                    renderizarRestaurantes(
+                        restaurantes
+                    );
+
+                    return;
+
+                }
+
+
+                const filtrados =
+                    restaurantes.filter(
+                        function(restaurante) {
+
+                            return (
+
+                                restaurante.name
+                                    .toLowerCase()
+                                    .includes(
+                                        termo
+                                    )
+
+                                ||
+
+                                restaurante.category
+                                    .toLowerCase()
+                                    .includes(
+                                        termo
+                                    )
+
+                            );
+
+                        }
+                    );
+
+
+                renderizarRestaurantes(
+                    filtrados
+                );
+
+            }
+        );
+
+
+        /* =========================
+           CATEGORIAS
+        ========================= */
+
+        document
+            .querySelectorAll(
+                ".category"
+            )
+            .forEach(
+                function(categoria) {
+
+                    categoria.addEventListener(
+                        "click",
+                        function() {
+
+                            const valor =
+                                categoria.dataset
+                                    .categoria
+                                    .toLowerCase();
+
+
+                            busca.value =
+                                valor;
+
+
+                            const filtrados =
+                                restaurantes.filter(
+                                    function(restaurante) {
+
+                                        return restaurante
+                                            .category
+                                            .toLowerCase()
+                                            .includes(
+                                                valor
+                                            );
+
+                                    }
+                                );
+
+
+                            renderizarRestaurantes(
+                                filtrados
+                            );
+
+
+                            document
+                                .getElementById(
+                                    "restaurantes"
+                                )
+                                .scrollIntoView({
+                                    behavior:
+                                        "smooth"
+                                });
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================
+           INICIAR
+        ========================= */
+
+        carregarRestaurantes();
+
+    </script>
+
+</body>
+
+</html>

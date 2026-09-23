@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>FoodNow | Meus pedidos</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b0b0d;
+        color: #f5f5f5;
+        min-height: 100vh;
+    }
+
+    header {
+        height: 76px;
+        border-bottom: 1px solid #242428;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        background: #0b0b0d;
+    }
+
+    .logo {
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
+
+    .logo span {
+        color: #d7193f;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    nav a,
+    nav button {
+        text-decoration: none;
+        color: #bcbcc2;
+        background: transparent;
+        border: 1px solid transparent;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    nav a:hover,
+    nav button:hover {
+        color: white;
+        background: #17171b;
+        border-color: #29292e;
+    }
+
+    .pagina {
+        width: min(1000px, 90%);
+        margin: 0 auto;
+        padding: 60px 0 100px;
+    }
+
+    .topo-pagina {
+        margin-bottom: 45px;
+    }
+
+    .mini-label {
+        color: #d7193f;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 0.95;
+        letter-spacing: -3px;
+        margin-bottom: 16px;
+    }
+
+    .descricao {
+        color: #85858d;
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 600px;
+    }
+
+    #pedidos {
+        display: grid;
+        gap: 18px;
+    }
+
+    .pedido-card {
+        background: #121216;
+        border: 1px solid #29292e;
+        border-radius: 22px;
+        padding: 25px;
+    }
+
+    .pedido-topo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #29292e;
+    }
+
+    .pedido-numero {
+        color: #ffffff;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .pedido-data {
+        color: #77777e;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .status {
+        padding: 8px 13px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        white-space: nowrap;
+        background: #2a1118;
+        color: #ff4669;
+    }
+
+    .status.entregue {
+        background: #102419;
+        color: #4ade80;
+    }
+
+    .status.cancelado {
+        background: #241414;
+        color: #ff6b6b;
+    }
+
+    .status.preparando,
+    .status.em_preparo {
+        background: #211b0e;
+        color: #f5c451;
+    }
+
+    .itens {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 13px 15px;
+        background: #19191e;
+        border-radius: 12px;
+    }
+
+    .item-info {
+        min-width: 0;
+    }
+
+    .item-nome {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .item-quantidade {
+        color: #77777e;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .item-preco {
+        color: #d7d7dc;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .pedido-final {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 18px;
+        border-top: 1px solid #29292e;
+    }
+
+    .pedido-final span {
+        color: #85858d;
+        font-size: 13px;
+    }
+
+    .pedido-total {
+        font-size: 23px;
+        font-weight: bold;
+    }
+
+    .mensagem {
+        background: #121216;
+        border: 1px solid #29292e;
+        border-radius: 20px;
+        padding: 35px;
+        text-align: center;
+        color: #85858d;
+    }
+
+    .mensagem strong {
+        display: block;
+        color: white;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .botao-login {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 13px 20px;
+        border-radius: 13px;
+        background: #d7193f;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .botao-login:hover {
+        background: #f0224d;
+    }
+
+    footer {
+        border-top: 1px solid #222228;
+        padding: 25px 7%;
+        color: #66666d;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        header {
+            padding: 0 5%;
+        }
+
+        nav a {
+            display: none;
+        }
+
+        .pagina {
+            width: 92%;
+            padding-top: 40px;
+        }
+
+        .pedido-topo {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .pedido-final {
+            align-items: flex-start;
+            gap: 10px;
+            flex-direction: column;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+
+```
+<div class="logo">
+    Food<span>Now.</span>
+</div>
+
+<nav>
+    <a href="/">
+        Início
+    </a>
+
+    <a href="/pedidos.html">
+        Pedidos
+    </a>
+
+    <a href="/painel.html">
+        Painel
+    </a>
+
+    <a href="/login.html" id="loginLink">
+        Entrar
+    </a>
+
+    <button id="sairBtn" style="display: none;">
+        Sair
+    </button>
+</nav>
+```
+
+</header>
+
+<main class="pagina">
+
+```
+<section class="topo-pagina">
+
+    <div class="mini-label">
+        FOODNOW / HISTÓRICO
+    </div>
+
+    <h1>
+        Meus pedidos.
+    </h1>
+
+    <p class="descricao">
+        Confira seus pedidos realizados, produtos,
+        valores e o status de cada pedido.
+    </p>
+
+</section>
+
+<section id="pedidos">
+
+    <div class="mensagem">
+        Carregando pedidos...
+    </div>
+
+</section>
+```
+
+</main>
+
+<footer>
+    FoodNow © 2026 — Comida do seu jeito.
+</footer>
+
+<script>
+
+    const token = localStorage.getItem("token");
+
+    const loginLink =
+        document.getElementById("loginLink");
+
+    const sairBtn =
+        document.getElementById("sairBtn");
+
+
+    if (token) {
+
+        loginLink.style.display = "none";
+
+        sairBtn.style.display = "block";
+
+    }
+
+
+    sairBtn.addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem("token");
+
+            localStorage.removeItem(
+                "foodnow_usuario"
+            );
+
+            localStorage.removeItem(
+                "foodnow_carrinho"
+            );
+
+            window.location.href = "/";
+
+        }
+    );
+
+
+    async function carregarPedidos() {
+
+        const container =
+            document.getElementById("pedidos");
+
+
+        if (!token) {
+
+            container.innerHTML = `
+                <div class="mensagem">
+
+                    <strong>
+                        Você ainda não está logado.
+                    </strong>
+
+                    Entre na sua conta para visualizar
+                    seus pedidos.
+
+                    <br>
+
+                    <a
+                        href="/login.html"
+                        class="botao-login"
+                    >
+                        Entrar na conta →
+                    </a>
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    "/orders",
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.error ||
+                    "Erro ao buscar pedidos."
+                );
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            if (
+                !Array.isArray(dados) ||
+                dados.length === 0
+            ) {
+
+                container.innerHTML = `
+                    <div class="mensagem">
+
+                        <strong>
+                            Nenhum pedido encontrado.
+                        </strong>
+
+                        Você ainda não realizou nenhum pedido.
+
+                        <br>
+
+                        <a
+                            href="/"
+                            class="botao-login"
+                        >
+                            Explorar restaurantes →
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            dados.forEach(function(pedido) {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "pedido-card";
+
+
+                let statusClasse =
+                    String(pedido.status || "")
+                        .toLowerCase()
+                        .replace(" ", "_");
+
+
+                let statusTexto =
+                    pedido.status || "PENDENTE";
+
+
+                if (
+                    pedido.status === "PENDENTE"
+                ) {
+
+                    statusTexto = "Pendente";
+
+                } else if (
+                    pedido.status === "PREPARANDO"
+                ) {
+
+                    statusTexto = "Preparando";
+
+                    statusClasse = "preparando";
+
+                } else if (
+                    pedido.status === "EM_PREPARO"
+                ) {
+
+                    statusTexto = "Em preparo";
+
+                    statusClasse = "em_preparo";
+
+                } else if (
+                    pedido.status === "ENTREGUE"
+                ) {
+
+                    statusTexto = "Entregue";
+
+                    statusClasse = "entregue";
+
+                } else if (
+                    pedido.status === "CANCELADO"
+                ) {
+
+                    statusTexto = "Cancelado";
+
+                    statusClasse = "cancelado";
+
+                }
+
+
+                const data =
+                    pedido.createdAt
+                        ? new Date(
+                            pedido.createdAt
+                        ).toLocaleString(
+                            "pt-BR"
+                        )
+                        : "Data não informada";
+
+
+                let itensHtml = "";
+
+
+                if (
+                    Array.isArray(pedido.items) &&
+                    pedido.items.length > 0
+                ) {
+
+                    pedido.items.forEach(
+                        function(item) {
+
+                            const nome =
+                                item.product &&
+                                item.product.name
+                                    ? item.product.name
+                                    : "Produto";
+
+
+                            const preco =
+                                Number(
+                                    item.price || 0
+                                );
+
+
+                            const quantidade =
+                                Number(
+                                    item.quantity || 0
+                                );
+
+
+                            const subtotal =
+                                preco * quantidade;
+
+
+                            itensHtml += `
+                                <div class="item">
+
+                                    <div class="item-info">
+
+                                        <div class="item-nome">
+                                            ${nome}
+                                        </div>
+
+                                        <div class="item-quantidade">
+                                            Quantidade: ${quantidade}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="item-preco">
+                                        R$ ${subtotal
+                                            .toFixed(2)
+                                            .replace(".", ",")}
+                                    </div>
+
+                                </div>
+                            `;
+
+                        }
+                    );
+
+                } else {
+
+                    itensHtml = `
+                        <div class="item">
+                            <div class="item-info">
+                                <div class="item-nome">
+                                    Nenhum item encontrado
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                }
+
+
+                card.innerHTML = `
+
+                    <div class="pedido-topo">
+
+                        <div>
+
+                            <div class="pedido-numero">
+                                Pedido #${pedido.id}
+                            </div>
+
+                            <div class="pedido-data">
+                                ${data}
+                            </div>
+
+                        </div>
+
+                        <div class="status ${statusClasse}">
+                            ${statusTexto}
+                        </div>
+
+                    </div>
+
+
+                    <div class="itens">
+
+                        ${itensHtml}
+
+                    </div>
+
+
+                    <div class="pedido-final">
+
+                        <span>
+                            Total do pedido
+                        </span>
+
+                        <strong class="pedido-total">
+                            R$ ${Number(
+                                pedido.total || 0
+                            )
+                                .toFixed(2)
+                                .replace(".", ",")}
+                        </strong>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(card);
+
+            });
+
+
+        } catch (erro) {
+
+            console.error(erro);
+
+
+            container.innerHTML = `
+
+                <div class="mensagem">
+
+                    <strong>
+                        Erro ao carregar pedidos.
+                    </strong>
+
+                    Não foi possível carregar
+                    seus pedidos agora.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    carregarPedidos();
+
+</script>
+
+</body>
+
+</html>

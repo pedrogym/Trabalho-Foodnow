@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodNow — Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    rgba(150, 20, 45, 0.18),
+                    transparent 30%
+                ),
+                #090909;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            height: 78px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #242424;
+            background: rgba(9, 9, 9, 0.95);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #d51f45;
+        }
+
+        .voltar {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .voltar:hover {
+            color: #fff;
+        }
+
+        main {
+            min-height: calc(100vh - 78px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .label {
+            color: #d51f45;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: 52px;
+            line-height: 0.95;
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
+
+        .descricao {
+            color: #999;
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #ccc;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px;
+            border-radius: 13px;
+            border: 1px solid #303030;
+            outline: none;
+            background: #191919;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #d51f45;
+            box-shadow: 0 0 0 3px rgba(213, 31, 69, 0.12);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            height: 54px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 14px;
+            background: #d51f45;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #ef2b54;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #mensagem {
+            min-height: 20px;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .cadastro {
+            text-align: center;
+            margin-top: 24px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .cadastro a {
+            color: #d51f45;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .cadastro a:hover {
+            color: #ef2b54;
+        }
+
+        .rodape {
+            text-align: center;
+            margin-top: 22px;
+            color: #555;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 0 20px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        FoodNow<span>.</span>
+    </div>
+
+    <a href="/" class="voltar">
+        ← Voltar
+    </a>
+
+</header>
+
+<main>
+
+    <div class="container">
+
+        <div class="label">
+            FOODNOW / ACESSO
+        </div>
+
+        <h1>
+            Entrar.
+        </h1>
+
+        <p class="descricao">
+            Acesse sua conta para continuar seu pedido.
+        </p>
+
+        <div class="card">
+
+            <form id="loginForm">
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seuemail@email.com"
+                        required
+                    >
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Sua senha"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    id="btnLogin"
+                >
+                    Entrar na plataforma →
+                </button>
+
+            </form>
+
+            <div id="mensagem"></div>
+
+        </div>
+
+        <div class="cadastro">
+
+            Ainda não possui uma conta?
+
+            <a href="/cadastro.html">
+                Criar conta
+            </a>
+
+        </div>
+
+        <div class="rodape">
+            FOODNOW • SUA COMIDA, SEU MOMENTO
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+    const form = document.getElementById("loginForm");
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+    const btnLogin =
+        document.getElementById("btnLogin");
+
+
+    form.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const senha =
+            document.getElementById("senha").value;
+
+
+        mensagem.textContent = "Entrando...";
+        mensagem.style.color = "#aaa";
+
+        btnLogin.disabled = true;
+
+
+        try {
+
+            const resposta = await fetch(
+                "/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: email,
+                        password: senha
+                    })
+                }
+            );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (!resposta.ok) {
+
+                mensagem.textContent =
+                    dados.error ||
+                    "E-mail ou senha inválidos.";
+
+                mensagem.style.color =
+                    "#ff5b75";
+
+                btnLogin.disabled = false;
+
+                return;
+            }
+
+
+            localStorage.setItem(
+                "token",
+                dados.token
+            );
+
+
+            localStorage.setItem(
+                "foodnow_usuario",
+                JSON.stringify(dados.user)
+            );
+
+
+            mensagem.textContent =
+                "Login realizado com sucesso!";
+
+            mensagem.style.color =
+                "#4ade80";
+
+
+            window.location.href =
+                "/index.html";
+
+        } catch (error) {
+
+            console.error(
+                "ERRO NO LOGIN:",
+                error
+            );
+
+            mensagem.textContent =
+                "Erro ao conectar com o servidor.";
+
+            mensagem.style.color =
+                "#ff5b75";
+
+            btnLogin.disabled = false;
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

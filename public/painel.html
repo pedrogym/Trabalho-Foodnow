@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodNow | Painel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0d;
+            color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        header {
+            height: 76px;
+            border-bottom: 1px solid #242428;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .logo span {
+            color: #d7193f;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav a,
+        nav button {
+            text-decoration: none;
+            color: #aaaab0;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav button:hover {
+            color: white;
+            background: #17171b;
+            border-color: #29292e;
+        }
+
+        .pagina {
+            width: min(1200px, 90%);
+            margin: auto;
+            padding: 55px 0 100px;
+        }
+
+        .topo {
+            margin-bottom: 40px;
+        }
+
+        .topo small {
+            color: #d7193f;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .topo h1 {
+            font-size: clamp(38px, 6vw, 60px);
+            letter-spacing: -3px;
+            margin-top: 8px;
+        }
+
+        .topo p {
+            color: #85858d;
+            margin-top: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .box {
+            background: #121216;
+            border: 1px solid #29292e;
+            border-radius: 22px;
+            padding: 28px;
+        }
+
+        .box-largo {
+            grid-column: 1 / -1;
+        }
+
+        .box h2 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .descricao {
+            color: #77777f;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #9999a1;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            background: #0d0d10;
+            border: 1px solid #303036;
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            outline: none;
+            margin-bottom: 17px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #d7193f;
+        }
+
+        button.acao {
+            width: 100%;
+            border: none;
+            background: #d7193f;
+            color: white;
+            padding: 14px;
+            border-radius: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button.acao:hover {
+            background: #f0224d;
+        }
+
+        .seletor {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .seletor select {
+            margin-bottom: 0;
+        }
+
+        .seletor button {
+            width: auto;
+            padding: 14px 20px;
+        }
+
+        #mensagem {
+            margin-top: 18px;
+            color: #888890;
+            font-size: 13px;
+        }
+
+        .pedido {
+            background: #19191e;
+            border: 1px solid #29292e;
+            border-radius: 18px;
+            padding: 20px;
+            margin-top: 12px;
+        }
+
+        .pedido-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .pedido-header strong {
+            font-size: 16px;
+        }
+
+        .pedido-header span {
+            color: #ff4669;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cliente {
+            color: #85858d;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .produto-pedido {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 1px solid #29292e;
+            font-size: 13px;
+        }
+
+        .pedido-total {
+            border-top: 1px solid #29292e;
+            margin-top: 12px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .status-form select {
+            margin: 0;
+            flex: 1;
+        }
+
+        .status-form button {
+            border: none;
+            background: #242429;
+            color: white;
+            border-radius: 11px;
+            padding: 0 18px;
+            cursor: pointer;
+        }
+
+        .status-form button:hover {
+            background: #d7193f;
+        }
+
+        .vazio {
+            color: #77777f;
+            background: #19191e;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        footer {
+            border-top: 1px solid #222228;
+            padding: 25px 7%;
+            color: #66666d;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .box-largo {
+                grid-column: auto;
+            }
+
+            .seletor {
+                grid-template-columns: 1fr;
+            }
+
+            .seletor button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            nav a {
+                display: none;
+            }
+
+            .pagina {
+                width: 92%;
+            }
+
+            .pedido-header {
+                flex-direction: column;
+            }
+
+            .status-form {
+                flex-direction: column;
+            }
+
+            .status-form button {
+                padding: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Food<span>Now.</span>
+    </div>
+
+    <nav>
+        <a href="/">Início</a>
+        <a href="/pedidos.html">Pedidos</a>
+        <a href="/painel.html">Painel</a>
+
+        <button id="sairBtn">
+            Sair
+        </button>
+    </nav>
+
+</header>
+
+
+<main class="pagina">
+
+    <section class="topo">
+
+        <small>ADMINISTRAÇÃO</small>
+
+        <h1>Painel.</h1>
+
+        <p>
+            Gerencie restaurantes, produtos e pedidos.
+        </p>
+
+    </section>
+
+
+    <div class="grid">
+
+        <!-- RESTAURANTE -->
+
+        <section class="box">
+
+            <h2>Novo restaurante</h2>
+
+            <p class="descricao">
+                Cadastre um novo estabelecimento.
+            </p>
+
+            <form id="formRestaurante">
+
+                <label for="nomeRestaurante">
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="nomeRestaurante"
+                    placeholder="Ex: FoodNow Sushi"
+                    required
+                >
+
+                <label for="categoriaRestaurante">
+                    Categoria
+                </label>
+
+                <input
+                    type="text"
+                    id="categoriaRestaurante"
+                    placeholder="Ex: Japonês"
+                    required
+                >
+
+                <button
+                    class="acao"
+                    type="submit"
+                >
+                    Criar restaurante
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- PRODUTO -->
+
+        <section class="box">
+
+            <h2>Novo produto</h2>
+
+            <p class="descricao">
+                Adicione produtos ao restaurante.
+            </p>
+
+            <form id="formProduto">
+
+                <label for="restauranteProduto">
+                    Restaurante
+                </label>
+
+                <select
+                    id="restauranteProduto"
+                    required
+                >
+                    <option value="">
+                        Selecione
+                    </option>
+                </select>
+
+                <label for="nomeProduto">
+                    Produto
+                </label>
+
+                <input
+                    type="text"
+                    id="nomeProduto"
+                    placeholder="Ex: Combo FoodNow"
+                    required
+                >
+
+                <label for="descricaoProduto">
+                    Descrição
+                </label>
+
+                <input
+                    type="text"
+                    id="descricaoProduto"
+                    placeholder="Descrição do produto"
+                >
+
+                <label for="precoProduto">
+                    Preço
+                </label>
+
+                <input
+                    type="number"
+                    id="precoProduto"
+                    step="0.01"
+                    placeholder="29.90"
+                    required
+                >
+
+                <label for="categoriaProduto">
+                    Categoria
+                </label>
+
+                <input
+                    type="text"
+                    id="categoriaProduto"
+                    placeholder="Ex: Hamburguer"
+                    required
+                >
+
+                <button
+                    class="acao"
+                    type="submit"
+                >
+                    Criar produto
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- PEDIDOS -->
+
+        <section class="box box-largo">
+
+            <h2>Pedidos do restaurante</h2>
+
+            <p class="descricao">
+                Acompanhe e atualize os pedidos recebidos.
+            </p>
+
+            <div class="seletor">
+
+                <select id="restaurantePedidos">
+
+                    <option value="">
+                        Selecione um restaurante
+                    </option>
+
+                </select>
+
+                <button
+                    class="acao"
+                    id="btnCarregarPedidos"
+                >
+                    Carregar pedidos
+                </button>
+
+            </div>
+
+            <div id="mensagem"></div>
+
+            <div id="pedidos"></div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<footer>
+    FoodNow © 2026 — Painel administrativo.
+</footer>
+
+
+<script>
+
+    const token =
+        localStorage.getItem("token");
+
+
+    if (!token) {
+
+        window.location.href =
+            "/login.html";
+
+    }
+
+
+    document
+        .getElementById("sairBtn")
+        .addEventListener(
+            "click",
+            function() {
+
+                localStorage.removeItem("token");
+
+                localStorage.removeItem(
+                    "foodnow_usuario"
+                );
+
+                localStorage.removeItem(
+                    "foodnow_carrinho"
+                );
+
+                window.location.href = "/";
+
+            }
+        );
+
+
+    const selectProduto =
+        document.getElementById(
+            "restauranteProduto"
+        );
+
+
+    const selectPedidos =
+        document.getElementById(
+            "restaurantePedidos"
+        );
+
+
+    async function carregarRestaurantes() {
+
+        try {
+
+            const resposta =
+                await fetch(
+                    "/restaurants"
+                );
+
+            const restaurantes =
+                await resposta.json();
+
+
+            selectProduto.innerHTML = `
+                <option value="">
+                    Selecione
+                </option>
+            `;
+
+
+            selectPedidos.innerHTML = `
+                <option value="">
+                    Selecione um restaurante
+                </option>
+            `;
+
+
+            restaurantes.forEach(
+                function(restaurante) {
+
+                    selectProduto.innerHTML += `
+                        <option value="${restaurante.id}">
+                            ${restaurante.name}
+                        </option>
+                    `;
+
+
+                    selectPedidos.innerHTML += `
+                        <option value="${restaurante.id}">
+                            ${restaurante.name}
+                        </option>
+                    `;
+
+                }
+            );
+
+        } catch (erro) {
+
+            console.error(erro);
+
+        }
+
+    }
+
+
+    document
+        .getElementById("formRestaurante")
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document.getElementById(
+                        "nomeRestaurante"
+                    ).value;
+
+                const category =
+                    document.getElementById(
+                        "categoriaRestaurante"
+                    ).value;
+
+
+                try {
+
+                    const resposta =
+                        await fetch(
+                            "/restaurants",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " +
+                                        token
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        name,
+                                        category
+                                    })
+                            }
+                        );
+
+
+                    const dados =
+                        await resposta.json();
+
+
+                    if (!resposta.ok) {
+
+                        throw new Error(
+                            dados.error ||
+                            "Erro ao criar restaurante."
+                        );
+
+                    }
+
+
+                    alert(
+                        "Restaurante criado com sucesso!"
+                    );
+
+
+                    this.reset();
+
+                    carregarRestaurantes();
+
+
+                } catch (erro) {
+
+                    alert(
+                        erro.message
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("formProduto")
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const restaurantId =
+                    document.getElementById(
+                        "restauranteProduto"
+                    ).value;
+
+                const name =
+                    document.getElementById(
+                        "nomeProduto"
+                    ).value;
+
+                const description =
+                    document.getElementById(
+                        "descricaoProduto"
+                    ).value;
+
+                const price =
+                    document.getElementById(
+                        "precoProduto"
+                    ).value;
+
+                const category =
+                    document.getElementById(
+                        "categoriaProduto"
+                    ).value;
+
+
+                try {
+
+                    const resposta =
+                        await fetch(
+                            "/products",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " +
+                                        token
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        name,
+                                        description,
+                                        price,
+                                        category,
+                                        restaurantId
+                                    })
+                            }
+                        );
+
+
+                    const dados =
+                        await resposta.json();
+
+
+                    if (!resposta.ok) {
+
+                        throw new Error(
+                            dados.error ||
+                            "Erro ao criar produto."
+                        );
+
+                    }
+
+
+                    alert(
+                        "Produto criado com sucesso!"
+                    );
+
+
+                    this.reset();
+
+
+                } catch (erro) {
+
+                    alert(
+                        erro.message
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("btnCarregarPedidos")
+        .addEventListener(
+            "click",
+            carregarPedidos
+        );
+
+
+    async function carregarPedidos() {
+
+        const restaurantId =
+            selectPedidos.value;
+
+
+        const container =
+            document.getElementById(
+                "pedidos"
+            );
+
+        const mensagem =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        if (!restaurantId) {
+
+            mensagem.textContent =
+                "Selecione um restaurante.";
+
+            container.innerHTML = "";
+
+            return;
+
+        }
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `/restaurants/${restaurantId}/orders`,
+                    {
+                        headers: {
+                            "Authorization":
+                                "Bearer " + token
+                        }
+                    }
+                );
+
+
+            const pedidos =
+                await resposta.json();
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    pedidos.error ||
+                    "Erro ao buscar pedidos."
+                );
+
+            }
+
+
+            mensagem.textContent = "";
+
+            container.innerHTML = "";
+
+
+            if (pedidos.length === 0) {
+
+                container.innerHTML = `
+                    <div class="vazio">
+                        Nenhum pedido encontrado para este restaurante.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            pedidos.forEach(
+                function(pedido) {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "pedido";
+
+
+                    let itensHTML = "";
+
+
+                    pedido.items.forEach(
+                        function(item) {
+
+                            itensHTML += `
+
+                                <div class="produto-pedido">
+
+                                    <span>
+                                        ${item.quantity}x
+                                        ${item.product.name}
+                                    </span>
+
+                                    <strong>
+                                        R$ ${(
+                                            item.price *
+                                            item.quantity
+                                        )
+                                            .toFixed(2)
+                                            .replace(".", ",")}
+                                    </strong>
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+
+                    card.innerHTML = `
+
+                        <div class="pedido-header">
+
+                            <strong>
+                                Pedido #${pedido.id}
+                            </strong>
+
+                            <span>
+                                ${pedido.status}
+                            </span>
+
+                        </div>
+
+
+                        <div class="cliente">
+
+                            Cliente:
+                            ${pedido.user
+                                ? pedido.user.name
+                                : "Cliente"}
+
+                            ${
+                                pedido.user
+                                    ? " • " +
+                                      pedido.user.email
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        ${itensHTML}
+
+
+                        <div class="pedido-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <span>
+                                R$ ${Number(pedido.total)
+                                    .toFixed(2)
+                                    .replace(".", ",")}
+                            </span>
+
+                        </div>
+
+
+                        <div class="status-form">
+
+                            <select
+                                id="status-${pedido.id}"
+                            >
+
+                                <option
+                                    value="PENDENTE"
+                                    ${pedido.status === "PENDENTE" ? "selected" : ""}
+                                >
+                                    Pendente
+                                </option>
+
+                                <option
+                                    value="PREPARANDO"
+                                    ${pedido.status === "PREPARANDO" ? "selected" : ""}
+                                >
+                                    Preparando
+                                </option>
+
+                                <option
+                                    value="ENTREGUE"
+                                    ${pedido.status === "ENTREGUE" ? "selected" : ""}
+                                >
+                                    Entregue
+                                </option>
+
+                                <option
+                                    value="CANCELADO"
+                                    ${pedido.status === "CANCELADO" ? "selected" : ""}
+                                >
+                                    Cancelado
+                                </option>
+
+                            </select>
+
+                            <button
+                                onclick="alterarStatus(${pedido.id})"
+                            >
+                                Atualizar
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+
+        } catch (erro) {
+
+            console.error(erro);
+
+            mensagem.textContent =
+                erro.message;
+
+        }
+
+    }
+
+
+    async function alterarStatus(
+        pedidoId
+    ) {
+
+        const select =
+            document.getElementById(
+                `status-${pedidoId}`
+            );
+
+
+        const novoStatus =
+            select.value;
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `/orders/${pedidoId}/status`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                "Bearer " +
+                                token
+                        },
+
+                        body:
+                            JSON.stringify({
+                                status:
+                                    novoStatus
+                            })
+                    }
+                );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    dados.error ||
+                    "Erro ao atualizar status."
+                );
+
+            }
+
+
+            alert(
+                "Status atualizado com sucesso!"
+            );
+
+
+            carregarPedidos();
+
+
+        } catch (erro) {
+
+            alert(
+                erro.message
+            );
+
+        }
+
+    }
+
+
+    carregarRestaurantes();
+
+</script>
+
+</body>
+
+</html>
